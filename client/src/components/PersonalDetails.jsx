@@ -1,11 +1,48 @@
- import React, { useState } from "react";
+import React, { useState } from "react";
 
 const Personal = ({ formData, setFormData }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let errorMessage = '';
+
+    // Validation checks based on the field name
+    switch (name) {
+      case 'name':
+        // Validate name (required)
+        if (!value.trim()) {
+          errorMessage = 'Name is required';
+        }
+        break;
+      case 'email':
+        // Validate email (required and valid format)
+        if (!value.trim()) {
+          errorMessage = 'Email is required';
+        } else if (!/^\S+@\S+\.\S+$/.test(value)) {
+          errorMessage = 'Invalid email address';
+        }
+        break;
+      case 'phone':
+        // Validate phone number (optional, if provided, must be valid format)
+        if (value.trim() && !/^\d{10}$/.test(value)) {
+          errorMessage = 'Invalid phone number';
+        }
+        break;
+      case 'skills':
+        // Validate skills (required)
+        if (!value.trim()) {
+          errorMessage = 'Skills are required';
+        }
+        break;
+      default:
+        break;
+    }
+
+    // Update form data and error message
     setFormData((prevFormData) => ({
       ...prevFormData,
       [name]: value,
+      // Store error message for the field
+      [`${name}Error`]: errorMessage,
     }));
   };
 
@@ -14,13 +51,12 @@ const Personal = ({ formData, setFormData }) => {
       <div className="mx-auto mt-16 max-w-xl sm:mt-20">
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-        {/* <img style={{align:"center"}} src="https://ouch-cdn2.icons8.com/mol4SgLuBWzBbBSGDt0eCsTzzeuNmHmA_7KXKcLlSXE/rs:fit:256:233/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvODYz/LzZiMTA3NzBmLTFh/MTktNDRlYS04OTVh/LWE5ZWFiMmMxMjIx/Yi5zdmc.png"/> */}
           <div className="sm:col-span-2">
             <label
               htmlFor="name"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Name
+              Name <span className="text-red-500">*</span>
             </label>
             <div className="mt-2.5">
               <input
@@ -33,6 +69,7 @@ const Personal = ({ formData, setFormData }) => {
                 autoFocus
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6 focus:outline-none"
               />
+              {formData.nameError && <p className="text-red-500">{formData.nameError}</p>}
             </div>
           </div>
           <div className="sm:col-span-2">
@@ -40,7 +77,7 @@ const Personal = ({ formData, setFormData }) => {
               htmlFor="email"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Email
+              Email <span className="text-red-500">*</span>
             </label>
             <div className="mt-2.5">
               <input
@@ -52,6 +89,7 @@ const Personal = ({ formData, setFormData }) => {
                 autoComplete="email"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6 focus:outline-none"
               />
+              {formData.emailError && <p className="text-red-500">{formData.emailError}</p>}
             </div>
           </div>
           <div className="sm:col-span-2">
@@ -59,7 +97,7 @@ const Personal = ({ formData, setFormData }) => {
               htmlFor="phone-number"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Phone number
+              Phone number <span className="text-red-500">*</span>
             </label>
             <div className="relative mt-2.5">
               <input
@@ -71,6 +109,7 @@ const Personal = ({ formData, setFormData }) => {
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6 focus:outline-none"
               />
+              {formData.phoneError && <p className="text-red-500">{formData.phoneError}</p>}
             </div>
           </div>
           <div>
@@ -116,7 +155,7 @@ const Personal = ({ formData, setFormData }) => {
               htmlFor="skills"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Skills
+              Skills <span className="text-red-500">*</span>
             </label>
             <div className="mt-2.5">
               <textarea
@@ -127,6 +166,7 @@ const Personal = ({ formData, setFormData }) => {
                 rows={3}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6 focus:outline-none"
               />
+              {formData.skillsError && <p className="text-red-500">{formData.skillsError}</p>}
             </div>
           </div>
         </div>

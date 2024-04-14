@@ -10,7 +10,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />}/>
             <Route path="/resume" element={<Resume />} />
-            {/* <Route path="*" element={<NoPage />} /> */}
         </Routes>
       </BrowserRouter>
     </div>
