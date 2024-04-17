@@ -16,17 +16,3 @@
   margin-left: 10px;
   width: 100%;
 }
-
-.img{
-  display: flex;
-  justify-content: space-between;
-  margin: 50px;
-  padding-top: 100px;
-}
-
-/* styles.css */
-.custom-image {
-  width: 350px;
-  height: 350px;
-  
-}

@@ -116,7 +116,7 @@ const Resume = () => {
         axios
           .post("http://localhost:9000/create-pdf", {
             resumeData: formData,
-            template: templateId
+            template: templateId;
           })
           .then(() => {
             console.log("testing");

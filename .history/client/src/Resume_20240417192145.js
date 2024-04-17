@@ -7,11 +7,11 @@ import Extras from "./components/extras";
 import axios from "axios";
 import { saveAs } from "file-saver";
 import Success from "./components/Success";
-import { useParams } from "react-router-dom";
+import {use}
 
 const Resume = () => {
   const [success, setSuccess] = useState(false);
-  const {templateId} = useParams();
+  const {templateId} = 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -116,7 +116,7 @@ const Resume = () => {
         axios
           .post("http://localhost:9000/create-pdf", {
             resumeData: formData,
-            template: templateId
+            template: templateId;
           })
           .then(() => {
             console.log("testing");
