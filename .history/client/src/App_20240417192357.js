@@ -10,7 +10,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />}/>
           <Route path="/templates" element={<Template />}/>
-            <Route path="/resume/templateId" element={<Resume />} />
+            <Route path="/resume" element={<Resume />} />
             {/* <Route path="*" element={<NoPage />} /> */}
         </Routes>
       </BrowserRouter>
